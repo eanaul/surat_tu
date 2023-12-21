@@ -10,6 +10,16 @@ class Results extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'notes',
+        'letter_id',
+        'presence_recipients',
+    ];
+
+    protected $casts = [
+        'presence_recipients' => 'array',
+    ];
+
     public function letter()
     {
         return $this->belongsTo(Letters::class);

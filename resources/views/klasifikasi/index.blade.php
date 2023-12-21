@@ -15,7 +15,7 @@
 
         <div class=" d-flex">
             <a href="{{ route('klasifikasi.create') }}"><button class="btn btn-info mb-3 text-white me-2">Tambah Data</button></a>
-            <a href="{{ route('export-excel') }}"><button class="btn btn-secondary mb-3 text-white">Eksport Excel</button></a>
+            <a href="{{ route('export-excel-klasifikasi') }}"><button class="btn btn-secondary mb-3 text-white">Eksport Excel</button></a>
         </div>
         
 
@@ -42,9 +42,13 @@
                             <td>{{ $no++ }}</td>
                             <td>{{ $i->letter_code }}</td>
                             <td>{{ $i->name_type }}</td>
-                            <td>2</td>
+                            <td>{{ App\Models\Letters::where('letter_type_id', $i->id)->count() }}</td>
                             <td>
                                 <div class="d-flex">
+                                    
+
+
+                                    <a href="{{ route('klasifikasi.show', $i->id) }}"><button class="btn btn-primary text-white me-2">Detail</button></a>
                                 <a href="{{ route('klasifikasi.edit', $i->id) }}"><button class="btn btn-success text-white me-2">Edit</button></a>
                                 <form action="{{ route('klasifikasi.delete', $i->id) }}" method="post">
                                     @csrf
@@ -59,4 +63,7 @@
                 </table>
 
     </div>
+
+    <!-- Modal -->
+
 @endsection

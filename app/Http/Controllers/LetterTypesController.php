@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LetterTypes;
+use App\Models\Letters;
 use Illuminate\Http\Request;
 use App\Exports\KlasifikasiExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -40,7 +41,7 @@ class LetterTypesController extends Controller
         $no = LetterTypes::count() + 1;
 
         LetterTypes::create([
-            'letter_code' => $request->letter_code . '-' . $no,
+            'letter_code' => $request->letter_code . '/' . $no,
             'name_type' => $request->name_type,
         ]);
 
@@ -50,9 +51,11 @@ class LetterTypesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(LetterTypes $letterTypes)
+    public function show(LetterTypes $letterTypes, $id)
     {
-        //
+        $letters = Letters::where('letter_type_id', $id)->get();
+
+        return view('klasifikasi.detail', compact('letters'));
     }
 
     /**

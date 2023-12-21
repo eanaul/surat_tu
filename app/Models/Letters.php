@@ -21,7 +21,7 @@ class Letters extends Model
 
     protected $casts = [
         'recipients' => 'array',
-        'attachment' => 'nullable',
+        
     ];
 
     public function letterType()

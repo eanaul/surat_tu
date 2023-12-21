@@ -2,42 +2,38 @@
 
 namespace App\Exports;
 
-use App\Models\LetterTypes;
 use App\Models\Letters;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithMapping;
-use Maatwebsite\Excel\Concerns\WithTitle;
 
-class KlasifikasiExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, WithTitle
+
+class SuratExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return LetterTypes::all();
+        return Letters::all();
     }
 
     public function headings(): array
     {
         return [
-            "Kode Surat", "Klasifikasi Surat", "Surat Tertaut"
+            "Nomor Surat", "Perihal", "Tanggal Keluar", "Penerima Surat", "Notulis", "Hasil Rapat"
         ];
     }
 
     public function map($item): array
     {
         return [
-            $item->letter_code,
-            $item->name_type,
-            Letters::where('letter_type_id', $item->id)->count()
+            $item->letter_type_id,
+            $item->letter_perihal,
+            $item->created_at,
+            $item->recipients,
+            $item->user->name,
         ];
-    }
-
-    public function title(): string
-    {
-        return 'Klasifikasi Surat';
     }
 }

@@ -19,6 +19,17 @@
             <div class="alert alert-success">{{ Session::get('success') }}</div>
         @endif
 
+        <div class="tombol d-flex">
+            <form class="d-flex w-25 mb-2" role="search" action="{{ route('surat.search') }}" method="get">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="src">
+                <button class="btn btn-primary" type="submit">Search</button>
+              </form>
+            
+            <form action="{{ route('surat.home') }}">
+            <button class="btn btn-secondary ms-2" type="submit">Clear</button>
+            </form>
+        </div>
+
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -32,7 +43,7 @@
                         @php
                             $no = 1
                         @endphp
-                        @foreach ($gurus as $i)
+                        @foreach ($users as $i)
                         <tr>
                             <td>{{ $no++ }}</td>
                             <td>{{ $i->name }}</td>

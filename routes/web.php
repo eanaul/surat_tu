@@ -4,6 +4,7 @@ use App\Http\Controllers\LettersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\LetterTypesController;
+use App\Http\Controllers\ResultsController;
 use App\Models\LetterTypes;
 
 /*
@@ -33,6 +34,7 @@ Route::middleware(['IsLogin', 'IsStaff'])->group(function () {
         Route::get('/edit/{id}', [UserController::class, 'staffEdit'])->name('edit');
         Route::patch('/update/{id}', [UserController::class, 'staffUpdate'])->name('update');
         Route::delete('/delete/{id}', [UserController::class, 'staffDelete'])->name('delete');
+        Route::get('/search', [UserController::class, 'search'])->name('search');
     });
 
     Route::prefix('guru')->name('guru.')->group(function () {
@@ -51,6 +53,8 @@ Route::middleware(['IsLogin', 'IsStaff'])->group(function () {
         Route::get('/edit/{id}', [LetterTypesController::class, 'edit'])->name('edit');
         Route::patch('/update/{id}', [LetterTypesController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [LetterTypesController::class, 'destroy'])->name('delete');
+        Route::get('/show/{id}', [LetterTypesController::class, 'show'])->name('show');
+
     });
 
     Route::prefix('surat')->name('surat.')->group(function () {
@@ -60,11 +64,23 @@ Route::middleware(['IsLogin', 'IsStaff'])->group(function () {
         Route::get('/edit/{id}', [LettersController::class, 'edit'])->name('edit');
         Route::patch('/update/{id}', [LettersController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [LettersController::class, 'destroy'])->name('delete');
+        Route::get('/download/{id}', [LettersController::class, 'downloadPDF'])->name('download');
+        Route::get('/print/{id}', [LettersController::class, 'show'])->name('print');
+        Route::get('/search', [LettersController::class, 'search'])->name('search');
     });
 });
 
 Route::middleware(['IsLogin', 'IsGuru'])->group(function () {
+    
+
+    Route::prefix('/result')->name('result.')->group(function() {
+        Route::get('/results/{id}', [ResultsController::class, 'create'] )->name('results');
+        Route::post('/store', [ResultsController::class, 'store'] )->name('store');
+        Route::get('/show/{id}', [ResultsController::class, 'show'] )->name('show');
+});
+    Route::get('/download/{id}', [LettersController::class, 'downloadPDF'])->name('download-pdf');
     Route::get('/home', [UserController::class, 'hitung'] )->name('home');
+    Route::get('/data', [LettersController::class, 'index'])->name('data');
 });
 
 Route::middleware(['IsLogin'])->group(function () {
@@ -84,4 +100,6 @@ Route::get('/error-permission', function() {
     return view('errors.permission');
 })->name('error.permission');
 
-Route::get('/export-excel', [LetterTypesController::class, 'exportExcel'])->name('export-excel');
+Route::get('/export-excel-klasifikasi', [LetterTypesController::class, 'exportExcel'])->name('export-excel-klasifikasi');
+
+Route::get('/export-excel-surat', [LettersController::class, 'exportExcel'])->name('export-excel-surat');

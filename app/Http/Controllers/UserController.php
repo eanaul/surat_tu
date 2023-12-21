@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\LetterTypes;
+use App\Models\Letters;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -18,7 +19,12 @@ class UserController extends Controller
 
         $surat = LetterTypes::get('name_type')->count();
 
-        return view('home', compact('staff', 'guru', 'surat'));  
+        $datasur = Letters::get('id')->count();
+
+        $auth = Auth::user()->name;
+        $letter = Letters::where('recipients', 'like', '%"name":"'. $auth .'"%')->count();
+
+        return view('home', compact('staff', 'guru', 'surat', 'datasur', 'letter'));  
     }
 
     /**
@@ -132,9 +138,9 @@ class UserController extends Controller
 
     public function indexGuru()
     {
-        $gurus = User::where('role', 'guru')->get();
+        $users = User::where('role', 'guru')->get();
 
-        return view('guru.index', compact('gurus'));
+        return view('guru.index', compact('users'));
     }
 
     public function guruCreate()
@@ -202,8 +208,26 @@ class UserController extends Controller
 
     public function guruDelete($id)
     {
-        $user = User::Where('id', $id)->delete();
+        User::Where('id', $id)->delete();
 
         return redirect()->route('guru.home')->with('success', 'Akun berhasil dihapus.');
+    }
+
+    public function result()
+    {
+        $user = User::Where('role', 'guru')->get();
+
+        return view('guru.result', compact('user'));
+    }
+
+    public function search(Request $request)
+    {
+        $request->validate([
+            'src' => 'required|string',
+        ]);
+
+        $users = User::where('name', 'like', '%' . $request->src . '%')->get();
+
+        return view('guru.home', compact('users'));
     }
 }
