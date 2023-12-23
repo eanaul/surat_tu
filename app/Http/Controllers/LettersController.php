@@ -124,6 +124,7 @@ public function show($id)
             
             return view('surat.edit', compact('letter', 'user', 'surat'));
 
+        
         }
 
     /**
