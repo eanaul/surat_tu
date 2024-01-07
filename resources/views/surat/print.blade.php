@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat</title>
-
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bukti Pembelian</title>
     <style>
         #back-wrap{
-            margin: 50px auto 0 auto;
+            margin: 30px auto 0 auto;
             width: 500px;
             display: flex;
             justify-content: flex-end;
@@ -22,189 +22,115 @@
             text-decoration: none;
         }
 
-    body {
-        font-family: 'Arial', sans-serif;
-        margin: 40px;
-        background-color: #f0f0f0;
-    }
-
-    img {
-        max-width: 100px;
-        display: block;
-        margin: 0 auto;
-    }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-        color: #333;
-    }
-
-    .info-container {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .kanan,
-    .kiri {
-        width: 48%;
-        padding: 20px;
-    }
-
-    .kanan p,
-    .kiri p {
-        font-size: 14px;
-        margin-bottom: 10px;
-    }
-
-    .date {
-        padding: 20px;
-        text-align: end;
-    }
-
-    .kiri-2,
-    .kanan-2,
-    .content,
-    .user,
-    .hormat,
-    .ttd {
-        margin-top: 20px;
-        padding: 20px;
-    }
-
-    .content pre {
-        white-space: pre-wrap;
-    }
-
-    .user ol {
-        padding-left: 20px;
-    }
-
-    .hormat p {
-        text-align: end;
-        font-weight: bold;
-    }
-
-    .ttd {
-        text-align: right;
-    }
-
-    .form {
-        width: 50%; /* Sesuaikan dengan lebar yang diinginkan */
-        margin: 0 auto; /* Ini akan membuat formulir berada di tengah secara horizontal */
-        padding: 20px;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .bungkus {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .kanan-2 {
-        justify-content: end;
-    }
-
-    pre {
-        font-size: 1rem;
-    }
-
-    #button-wrap {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
+        #receipt{
+            box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            margin: 30px auto 0 auto;
+            width: 500px;
+            background: #fff;
         }
 
-        .btn-back, .btn-print {
-            padding: 8px 15px;
-            color: #fff;
-            border-radius: 5px;
-            text-decoration: none;
+        h2{
+            font-size: .9rem;
         }
 
-        .btn-back {
-            background: #666;
+        p{
+            font-size: .8rem;
+            color: #666;
+            line-height: 1.2rem;
         }
 
-        .btn-print {
-            background: #007bff;
+        #top{
+            margin-top: 25px;
         }
 
+        #top .info{
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        table{
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        td{
+            padding: 5px 0 5px 15px;
+            border: 1px solid #EEE;
+        }
+
+        .tabletitle{
+            font-size: .5rem;
+            background: #EEE;
+        }
+
+        .itemtext{
+            font-size: .7rem;
+        }
+
+        #legalcopy{
+            margin-top: 15px;
+        }
+
+        .btn-print{
+            float: right;
+            color: #333;
+        }
     </style>
 </head>
 <body>
-    <div id="button-wrap">
+    <div id="back-wrap">
         <a href="{{ route('surat.home') }}" class="btn-back">Kembali</a>
-        <a href="{{ route('surat.download', $surat['id']) }}" class="btn-print">Cetak (.pdf)</a>
+        <a href="{{ route('surat.download', $surat['id']) }}" class="btn-back" style="margin-left: 10px;">Cetak (.pdf)</a>
     </div>
+    <div id="receipt">
+        
+        <center id="top">
+            <div class="info">
+                <h2>SMK Wikrama Kota Bogor</h2>
+            </div>
+        </center>
+        <div id="mid">
+            <div class="info">
+                <p>
+                    Alamat : Jl. Raya Wangun Kel. Sindangsari Bogor <br>
+                    Email : prohumasi@smkwikrama.sch.id <br>
+                    Phone : 11234445 <br>
+                </p>
+            </div>
+        </div>
+        <div class="isi">
+            <hr>
+            <p>{{ $surat->created_at->format('d-m-Y') }}</p>
 
-    <div class="form">
-    <h1>SMK WIKRAMA BOGOR</h1>
-    
-    <div class="bungkus">
-    <div class="kanan">
-    <p>Bisnis dan Manajemen</p>
-        <p>Teknologi Informasi dan Komunikasi</p>
-        <p>Pariwisata</p>
-    </div>
-
-    <div class="kiri">
-        <p>Jl. Raya Wangun Kel. Sindangsari Bogor</p>
-        <p>Telp/Faks: (0251)8242411</p>
-        <p>e-mail: prohumasi@smkwikrama.sch.id</p>
-        <p>website: www.skmikrama.sch.id</p>
-    </div>
-</div>
-    <hr>
-
-    <div class="date">
-        {{ $surat->created_at->format('d-m-Y') }}
-    </div>
-
-    <div class="bungkus">
-    <div class="kiri-2">
-        <p>No : 220604-1/0002/SMK Wikrama/XII/2023</p>
-        <p>Hal : {{ $surat->letter_perihal }}</p>
-    </div>
-
-    <div class="kanan-2">
-        <p>Kepada</p>
-        <p>Yth. Bapak/Ibu Terlampir</p>
-        <p>Di Tempat</p>
-    </div>
-    </div>
-
-    <div class="content">
-        {{ $surat->content }}
-    </div>
-    
-    <div class="user">
-        <p>Anggota Yang Menghadiri</p>
-        <ol>
+            <p>No : {{ $surat->letterType->letter_code }}/SMK Wikrama/XII/2023</p>
+            <p>Perihal: {{ $surat->letter_perihal }}</p>
+            <br>
+            <p>Kepada</p>
+            <p>Yth. Bapak/Ibu Terlampir</p>
+            <p>Di Tempat</p>
+            <br>
+            <p>{{ $surat->content }}</p>    
+            <br>
+            <p>Anggota Diundang</p>
+            <ul>
             <li>
-                {{ implode(', ', array_column($surat->recipients, 'name')) }}</
+                <p>{{ implode(', ', array_column($surat->recipients, 'name')) }}</p>
             </li>
-        </ol>
+            </ul>
+            <br>
+            <p>Notulis: {{ $surat->user->name }}</p>
+            <br>
+            <div class="hormat">
+                <p>Hormat Kami</p>
+                <p>Kepala SMK Wikrama Bogor</p>
+            </div>
+        
+            <div class="ttd">
+                (....................)
+            </div>
+        </div>
+        </div>
     </div>
-
-    <div class="hormat">
-        <p>Hormat Kami</p>
-        <p>Kepala SMK Wikrama Bogor</p>
-    </div>
-
-    <div class="ttd">
-        (....................)
-    </div>
-</div>
-
-
-<div class="lampiran" style="margin-top: 100px">
-    <center>
-        {{ $surat->attachment }}
-    </center>
-</div>
 </body>
 </html>

@@ -20,12 +20,12 @@
         @endif
 
         <div class="tombol d-flex">
-            <form class="d-flex w-25 mb-2" role="search" action="{{ route('surat.search') }}" method="get">
+            <form class="d-flex w-25 mb-2" role="search" action="{{ route('staff.search') }}" method="get">
                 <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="src">
                 <button class="btn btn-primary" type="submit">Search</button>
               </form>
             
-            <form action="{{ route('surat.home') }}">
+            <form action="{{ route('staff.home') }}">
             <button class="btn btn-secondary ms-2" type="submit">Clear</button>
             </form>
         </div>

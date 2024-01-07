@@ -18,6 +18,16 @@
             <a href="{{ route('export-excel-klasifikasi') }}"><button class="btn btn-secondary mb-3 text-white">Eksport Excel</button></a>
         </div>
         
+        <div class="tombol d-flex">
+            <form class="d-flex w-25 mb-2" role="search" action="{{ route('klasifikasi.search') }}" method="get">
+                <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="src">
+                <button class="btn btn-primary" type="submit">Search</button>
+              </form>
+            
+            <form action="{{ route('klasifikasi.home') }}">
+            <button class="btn btn-secondary ms-2" type="submit">Clear</button>
+            </form>
+        </div>
 
         @if (Session::get('success'))
             <div class="alert alert-success">{{ Session::get('success') }}</div>
@@ -40,7 +50,7 @@
                         @foreach ($letterTypes as $i)
                         <tr>
                             <td>{{ $no++ }}</td>
-                            <td>{{ $i->letter_code }}</td>
+                            <td>{{ $i->letter_code }}/SMK Wikrama/XII/2023</td>
                             <td>{{ $i->name_type }}</td>
                             <td>{{ App\Models\Letters::where('letter_type_id', $i->id)->count() }}</td>
                             <td>

@@ -34,7 +34,7 @@ Route::middleware(['IsLogin', 'IsStaff'])->group(function () {
         Route::get('/edit/{id}', [UserController::class, 'staffEdit'])->name('edit');
         Route::patch('/update/{id}', [UserController::class, 'staffUpdate'])->name('update');
         Route::delete('/delete/{id}', [UserController::class, 'staffDelete'])->name('delete');
-        Route::get('/search', [UserController::class, 'search'])->name('search');
+        Route::get('/search', [UserController::class, 'StaffSearch'])->name('search');
     });
 
     Route::prefix('guru')->name('guru.')->group(function () {
@@ -44,6 +44,7 @@ Route::middleware(['IsLogin', 'IsStaff'])->group(function () {
         Route::get('/edit/{id}', [UserController::class, 'guruEdit'])->name('edit');
         Route::patch('/update/{id}', [UserController::class, 'guruUpdate'])->name('update');
         Route::delete('/delete/{id}', [UserController::class, 'guruDelete'])->name('delete');
+        Route::get('/search', [UserController::class, 'GuruSearch'])->name('search');
     });
 
     Route::prefix('klasifikasi')->name('klasifikasi.')->group(function () {
@@ -54,7 +55,7 @@ Route::middleware(['IsLogin', 'IsStaff'])->group(function () {
         Route::patch('/update/{id}', [LetterTypesController::class, 'update'])->name('update');
         Route::delete('/delete/{id}', [LetterTypesController::class, 'destroy'])->name('delete');
         Route::get('/show/{id}', [LetterTypesController::class, 'show'])->name('show');
-
+        Route::get('/search', [LetterTypesController::class, 'search'])->name('search');
     });
 
     Route::prefix('surat')->name('surat.')->group(function () {

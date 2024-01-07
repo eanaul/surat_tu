@@ -207,6 +207,16 @@ public function show($id)
     return $pdf->download('receipt.pdf'); 
 }
 
-    
+public function search(Request $request)
+{
+    $request->validate([
+        'src' => 'required|string',
+    ]);
+
+    $letters = Letters::where('letter_perihal', 'like', '%' . $request->src . '%')
+           ->get();
+
+    return view('surat.index', compact('letters'));
+}
 
 }

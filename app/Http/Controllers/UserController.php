@@ -220,14 +220,30 @@ class UserController extends Controller
         return view('guru.result', compact('user'));
     }
 
-    public function search(Request $request)
+    public function StaffSearch(Request $request)
     {
         $request->validate([
             'src' => 'required|string',
         ]);
 
-        $users = User::where('name', 'like', '%' . $request->src . '%')->get();
+        $staffs = User::where('name', 'like', '%' . $request->src . '%')
+               ->where('role', '=', 'staff')
+               ->get();
 
-        return view('guru.home', compact('users'));
+
+        return view('staff.index', compact('staffs'));
+    }
+
+    public function GuruSearch(Request $request)
+    {
+        $request->validate([
+            'src' => 'required|string',
+        ]);
+
+        $users = User::where('name', 'like', '%' . $request->src . '%')
+               ->where('role', '=', 'guru')
+               ->get();
+
+        return view('guru.index', compact('users'));
     }
 }

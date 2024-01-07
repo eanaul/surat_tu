@@ -104,4 +104,16 @@ class LetterTypesController extends Controller
 
         return Excel::download(new KlasifikasiExport, $file_name, \Maatwebsite\Excel\Excel::XLSX);
     }
+
+    public function search(Request $request)
+{
+    $request->validate([
+        'src' => 'required|string',
+    ]);
+
+    $letterTypes = LetterTypes::where('name_type', 'like', '%' . $request->src . '%')
+           ->get();
+
+    return view('klasifikasi.index', compact('letterTypes'));
+}
 }
